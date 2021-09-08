@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Heart Rate Variability"
+        android:textSize="26dp"
+        android:layout_marginLeft="10dp"/>
+
+    <SurfaceView
+        android:id="@+id/preview"
+        android:layout_below="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="250dp"
+        android:layout_weight="1"></SurfaceView>
+
+    <ProgressBar
+        android:id="@+id/HRPB"
+
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/preview"
+        android:layout_marginTop="30dp"
+        android:indeterminate="false"
+        android:progress="1"
+        android:progressDrawable="@drawable/circular_progressbar" />
+
+</RelativeLayout>
