@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CalculateHRV extends AppCompatActivity {
 
@@ -109,11 +113,73 @@ public class CalculateHRV extends AppCompatActivity {
             it1++;
         }
 
+        int[] variance = new int[peakredlist.size()-1];
+        for(int i=0; i<(peakredlist.size()-1); i++){
+            variance[i] = peakred[i+1] - peakred[i];
+        }
+
+        double mode = (double)find_mode(variance, peakredlist.size()-1);
+        Map<Integer, Integer> mp = new HashMap<>();
+        for(int i = 0; i < (peakredlist.size()-1); i++){
+            int key = variance[i];
+            if(mp.containsKey(key)){
+                int freq = mp.get(key);
+                freq++;
+                mp.put(key, freq);
+            }
+            else{
+                mp.put(key, 1);
+            }
+        }
+        double modeAmplitude = (double)Collections.max(mp.values());//(double)100.0*((double)Collections.max(mp.values())/(double)(peakredlist.size()-1));
+        Arrays.sort(variance);
+        double MxDMn = (double)variance[peakredlist.size()-2] - variance[0];
+        double IS = modeAmplitude / (2*mode*MxDMn);
+        String result = Arrays.toString(peakred) + "\nAnswer = " + Double.toString(IS);
+        Log.e("Mode, AMode:", Double.toString(MxDMn)+" "+Double.toString(mode) + " " + Double.toString(modeAmplitude));
         System.out.println(Arrays.toString(peakred));
-        tv1.setText(Arrays.toString(peakred));
+        Log.e("Data: ",Arrays.toString(peakred));
+        tv1.setText(result);
         System.out.println("HR: " + peakred.length*3);
     }
+    public double find_mean(int arr[], int n){
+        int sum = 0;
+        for (int i = 0; i < n; i++)
+            sum += arr[i];
 
+        return (double)sum / (double)n;
+    }
+    public double find_median(int arr[], int n){
+
+        Arrays.sort(arr);
+        if (n % 2 != 0)
+            return (double)arr[n / 2];
+
+        return (double)(arr[(n - 1) / 2] + arr[n / 2]) / 2.0;
+    }
+    public int find_mode(int arr[], int n){
+        Map<Integer, Integer> mp = new HashMap<>();
+        for(int i = 0; i < n; i++){
+            int key = arr[i];
+            if(mp.containsKey(key)){
+                int freq = mp.get(key);
+                freq++;
+                mp.put(key, freq);
+            }
+            else{
+                mp.put(key, 1);
+            }
+        }
+
+        int max_count = 0, res = -1;
+        for(Map.Entry<Integer, Integer> val : mp.entrySet()){
+            if (max_count < val.getValue()){
+                res = val.getKey();
+                max_count = val.getValue();
+            }
+        }
+        return res;
+    }
     public double find_threshold(double[] arr)
     {
         double maxx=0;
