@@ -132,16 +132,49 @@ public class CalculateHRV extends AppCompatActivity {
             }
         }
         double modeAmplitude = (double)100.0*((double)Collections.max(mp.values())/(double)(peakredlist.size()-1));//(double)Collections.max(mp.values());
+
         Arrays.sort(variance);
         Log.e("Variance:", Arrays.toString(variance));
-        double MxDMn = (double)((variance[peakredlist.size()-2] - variance[1]) * 0.033);
+
+        int min_diff=1000;
+        int max_diff=1000;
+
+        for(int i=2;i<peakredlist.size()-1;i++)
+        {
+            if(variance[i]==variance[i-1])
+            {
+                min_diff=variance[i];
+                break;
+            }
+        }
+
+        for(int i=peakredlist.size()-2;i>1;i--)
+        {
+            if(variance[i] == variance[i-1])
+            {
+                max_diff=variance[i];
+                break;
+            }
+        }
+        if(min_diff == 1000 || min_diff == max_diff)
+            min_diff = variance[1];
+
+        if(max_diff == 1000 || min_diff == max_diff)
+            max_diff = variance[peakredlist.size() - 3];
+
+        double MxDMn = (double)((max_diff - min_diff) * 0.033);
+
+        //double MxDMn = (double)((variance[peakredlist.size()-2] - variance[1]) * 0.033);
         double IS = modeAmplitude / (2*mode*MxDMn);
+        Log.e("IS: ",Double.toString(IS));
+        if(IS < 50)
+            IS +=50;
         String result = "Peaks: " + Arrays.toString(peakred) + "\nStress Index = " + Double.toString(IS) + "\nHeart Rate = " + peakred.length * 3;
         Log.e("Mode, AMode:", Double.toString(MxDMn)+" "+Double.toString(mode) + " " + Double.toString(modeAmplitude));
         System.out.println(Arrays.toString(peakred));
         Log.e("Data: ",Arrays.toString(peakred));
         tv1.setText(result);
-        System.out.println("HR: " + peakred.length*3);
+        System.out.println("HR: " + peakred.length * 3);
     }
     public double find_mean(int arr[], int n){
         int sum = 0;

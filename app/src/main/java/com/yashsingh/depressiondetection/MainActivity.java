@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
             long endTime = System.currentTimeMillis();
             double totalTimeInSecs = (endTime - startTime) / 1000d; //to convert time to seconds
-            if (counter>=900) { //when 30 seconds of measuring passes do the following " we chose 30 seconds to take half sample since 60 seconds is normally a full sample of the heart beat
+            if (counter>=900) { //when 60 seconds of measuring passes do the following " we chose 30 seconds to take half sample since 60 seconds is normally a full sample of the heart beat
 
                 Log.i("Green Size",Integer.toString(GreenAvgList.size()));
                 Log.i("Red Size",Integer.toString(RedAvgList.size()));
