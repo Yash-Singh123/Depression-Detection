@@ -18,7 +18,10 @@ import android.os.PowerManager;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -103,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
             ProgHeart = findViewById(R.id.HRPB);
             ProgHeart.setProgress(0);
-            ProgHeart.setMax(30);
+            ProgHeart.setMax(50);
         }catch (Error e){
             Log.e("error", "error"+e);
         }
@@ -179,6 +182,26 @@ public class MainActivity extends AppCompatActivity {
                 GreenAvgList.clear();
                 tslist.clear();
                 startTime = System.currentTimeMillis();
+                TextView tv1 = (TextView) findViewById(R.id.textprogress);
+                tv1.setText("0%");
+                TextView tinfo1 = (TextView)findViewById(R.id.textinfo1);
+                TextView tinfo2 = (TextView)findViewById(R.id.textinfo2);
+                tinfo1.setText("Finger not detected");
+                tinfo2.setText("Place your finger correctly");
+                TextView tinfo3 = (TextView)findViewById(R.id.textinfo3);
+                tinfo3.setText("");
+                RedAvgList.clear();
+                GreenAvgList.clear();
+                tslist.clear();
+                startTime = System.currentTimeMillis();
+            }
+
+            else
+            {
+                TextView tinfo1 = (TextView)findViewById(R.id.textinfo1);
+                TextView tinfo2 = (TextView)findViewById(R.id.textinfo2);
+                tinfo1.setText("Finger Detected !!");
+                tinfo2.setText("Measurement in progress...");
             }
 
             long endTime = System.currentTimeMillis();
@@ -276,8 +299,38 @@ public class MainActivity extends AppCompatActivity {
             if (RedAvg != 0) { //increment the progresspar
 
                 tslist.add((endTime - startTime) / 1000d);
-                ProgP = counter / 30;
+                ProgP = counter / 18;
                 ProgHeart.setProgress(ProgP);
+
+                if(counter%18==0) {
+                    TextView tv1 = (TextView) findViewById(R.id.textprogress);
+                    ImageView iv1 = (ImageView) findViewById(R.id.i1);
+                    ImageView iv2 = (ImageView) findViewById(R.id.i2);
+                    ImageView iv3 = (ImageView)findViewById(R.id.i3);
+                    tv1.setText(2*ProgP+"%");
+
+                    if(iv1.getVisibility() == View.VISIBLE && iv2.getVisibility() == View.VISIBLE && iv3.getVisibility() == View.VISIBLE)
+                    {
+                        iv1.setVisibility(View.INVISIBLE);
+                        iv2.setVisibility(View.INVISIBLE);
+                        iv3.setVisibility(View.INVISIBLE);
+                    }
+                    //iv2.setVisibility((View.VISIBLE));
+                    else if(iv1.getVisibility() == View.VISIBLE && iv2.getVisibility() == View.VISIBLE)
+                    {
+                        iv3.setVisibility(View.VISIBLE);
+                    }
+                    else if(iv1.getVisibility() == View.VISIBLE)
+                        iv2.setVisibility(View.VISIBLE);
+                    else
+                        iv1.setVisibility(View.VISIBLE);
+                }
+
+                if(counter>250)
+                {
+                    TextView tinfo3 = (TextView)findViewById(R.id.textinfo3);
+                    tinfo3.setText("Glad to see you taking the measurement!!");
+                }
             }
 
             //keeps taking frames tell 30 seconds

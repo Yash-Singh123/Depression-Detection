@@ -1,36 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ripple"
     tools:context=".MainActivity">
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Heart Rate Variability"
-        android:textSize="26dp"
-        android:layout_marginLeft="10dp"/>
 
     <SurfaceView
         android:id="@+id/preview"
-        android:layout_below="@+id/title"
-        android:layout_width="fill_parent"
-        android:layout_height="250dp"
-        android:layout_weight="1"></SurfaceView>
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/HRPB"
-
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/preview"
-        android:layout_marginTop="30dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:indeterminate="false"
         android:progress="1"
-        android:progressDrawable="@drawable/circular_progressbar" />
+        android:progressDrawable="@drawable/circular_progressbar"
+        app:layout_constraintBottom_toBottomOf="@+id/preview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/i1"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/preview"
+        app:srcCompat="@drawable/circles" />
+
+    <ImageView
+        android:id="@+id/i2"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/circles2" />
+
+    <ImageView
+        android:id="@+id/i3"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/circles3" />
+
+    <TextView
+        android:id="@+id/textprogress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#ffffffff"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/preview" />
+
+    <TextView
+        android:id="@+id/textinfo1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:textColor="#ffffffff"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textinfo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:textColor="#ffffffff"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textinfo1" />
+
+    <TextView
+        android:id="@+id/textinfo3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:textColor="#ffffffff"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textinfo2" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context=".MainActivity">-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/title"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Heart Rate Variability"-->
+<!--        android:textSize="26dp"-->
+<!--        android:layout_marginLeft="10dp"/>-->
+
+<!--    <SurfaceView-->
+<!--        android:id="@+id/preview"-->
+<!--        android:layout_below="@+id/title"-->
+<!--        android:layout_width="fill_parent"-->
+<!--        android:layout_height="250dp"-->
+<!--        android:layout_weight="1"></SurfaceView>-->
+
+<!--    <ProgressBar-->
+<!--        android:id="@+id/HRPB"-->
+
+<!--        style="?android:attr/progressBarStyleHorizontal"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:layout_below="@+id/preview"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:indeterminate="false"-->
+<!--        android:progress="1"-->
+<!--        android:progressDrawable="@drawable/circular_progressbar" />-->
+
+<!--</RelativeLayout>-->

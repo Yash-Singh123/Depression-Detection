@@ -17,9 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DepressionDetection">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".StartActivity"></activity>
         <activity android:name=".CalculateHRV" />
-        <activity android:name=".StartActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
