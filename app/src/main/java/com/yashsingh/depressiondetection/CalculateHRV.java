@@ -167,13 +167,27 @@ public class CalculateHRV extends AppCompatActivity {
         //double MxDMn = (double)((variance[peakredlist.size()-2] - variance[1]) * 0.033);
         double IS = modeAmplitude / (2*mode*MxDMn);
         Log.e("IS: ",Double.toString(IS));
-        if(IS < 50)
-            IS +=50;
-        String result = "Peaks: " + Arrays.toString(peakred) + "\nStress Index = " + Double.toString(IS) + "\nHeart Rate = " + peakred.length * 3;
+
+        int int_IS = (int)Math.round(IS);
+        String peaks = "Peaks: " + Arrays.toString(peakred);
+        String val = Integer.toString(int_IS);
+        String result;
+
+        if(IS>300)
+            result="HIGH";
+        else if(IS>150)
+            result="MEDIUM";
+        else
+            result="LOW";
+
         Log.e("Mode, AMode:", Double.toString(MxDMn)+" "+Double.toString(mode) + " " + Double.toString(modeAmplitude));
         System.out.println(Arrays.toString(peakred));
         Log.e("Data: ",Arrays.toString(peakred));
-        tv1.setText(result);
+        tv1.setText(peaks);
+        TextView tv2 = (TextView)findViewById(R.id.t2);
+        TextView tv3 = (TextView)findViewById(R.id.t3);
+        tv2.setText(val);
+        tv3.setText(result);
         System.out.println("HR: " + peakred.length * 3);
     }
     public double find_mean(int arr[], int n){
